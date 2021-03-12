@@ -31,7 +31,13 @@ app.post("/", requireJsonContent, (req, res) => {
   res.status(201).send("Thanks for the JSON!");
 });
 
+const userRouter = require("./routes/user.route");
+app.use("/user", userRouter);
+
 const coinRouter = require("./routes/coin.route");
 app.use("/coin", coinRouter);
+
+const portfolioRouter = require("./routes/portfolio.route");
+app.use("/portfolio", portfolioRouter);
 
 module.exports = app;

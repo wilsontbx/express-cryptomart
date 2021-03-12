@@ -9,10 +9,21 @@ const UserSchema = new mongoose.Schema({
     minlength: 3,
     lowercase: true,
   },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    lowercase: true,
+  },
   password: {
     type: String,
     required: true,
     minlength: 8,
+  },
+  wallet: {
+    type: Number,
+    required: true,
+    default: 0,
   },
   firstName: String,
   lastName: String,
