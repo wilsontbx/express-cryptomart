@@ -13,7 +13,7 @@ const PortfolioControllers = {
     }
   },
   newCoin: async (portfolio, next) => {
-    // const { username, coin, unit, spend } = portfolio;
+    // const { username, coin, unit, price, spend } = portfolio;
     try {
       //   await UserModel.findOneAndUpdate({ username, username });
       const newPortfolio = new PortfolioModel(portfolio);
@@ -24,7 +24,7 @@ const PortfolioControllers = {
     }
   },
   tradeCoin: async (portfolio, next) => {
-    const { username, coin, unit, trade } = portfolio;
+    const { username, coin, unit, price, trade } = portfolio;
     try {
       //   const exist = await PortfolioModel.findOne({
       //     username: username,
@@ -45,7 +45,7 @@ const PortfolioControllers = {
     }
   },
   sellCoin: async (portfolio, next) => {
-    // const { username, coin, unit, spend } = portfolio;
+    const { username, coin, unit, earn } = portfolio;
     try {
       const deletePortfolio = await PortfolioModel.findOneAndDelete({
         username: username,

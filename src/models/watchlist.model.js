@@ -5,14 +5,25 @@ const WatchlistSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  watchlist: [
-    {
-      coin: { type: String, required: true },
-      currentPrice: { type: Number, required: true, min: 0 },
-      created_at: { type: Date, required: true, default: Date.now },
-      updated_at: { type: Date, required: true, default: Date.now },
-    },
-  ],
+  coin: {
+    type: String,
+    required: true,
+  },
+  currentPrice: {
+    type: Number,
+    required: true,
+    min: 0,
+  },
+  created_at: {
+    type: Date,
+    required: true,
+    default: Date.now,
+  },
+  updated_at: {
+    type: Date,
+    required: true,
+    default: Date.now,
+  },
 });
 
 const Watchlist = mongoose.model("Watchlist", WatchlistSchema);
