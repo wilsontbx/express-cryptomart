@@ -3,12 +3,15 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const createJWTToken = require("../config/jwt");
 const UserModel = require("../models/user.model");
+const HistoryModel = require("../models/history.model");
 
 router.post("/register", async (req, res, next) => {
   try {
     const user = new UserModel(req.body);
     const newUser = await user.save();
-    res.status(201).json(newUser);
+    const history = new HistoryModel(req.body);
+    const newhistory = await history.save();
+    res.status(201).json({ newUser, newhistory });
   } catch (err) {
     next(err);
   }
@@ -19,7 +22,6 @@ router.post("/login", async (req, res, next) => {
     const { username, password } = req.body;
     const user = await UserModel.findOne({ username });
     const result = await bcrypt.compare(password, user.password);
-
     if (!result) {
       throw new Error("Login failed");
     }

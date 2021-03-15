@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const PortfolioControllers = require("../controllers/portfolio.controller");
 const protectRoute = require("../middleware/protectorRoute");
+const tradeRoute = require("../middleware/tradeRoute");
 
 //route
 router.get("/:username", protectRoute, async (req, res, next) => {
@@ -19,7 +20,7 @@ router.get("/:username", protectRoute, async (req, res, next) => {
   }
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/", protectRoute, tradeRoute, async (req, res, next) => {
   try {
     const newPortfolio = await PortfolioControllers.newCoin(req.body, next);
     res.status(201).json({
@@ -31,24 +32,24 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.patch("/", async (req, res, next) => {
+router.put("/", protectRoute, tradeRoute, async (req, res, next) => {
   try {
-    const editPortfolio = await PortfolioControllers.tradeCoin(req.body, next);
+    const tradePortfolio = await PortfolioControllers.tradeCoin(req.body, next);
     res.status(200).json({
       success: true,
-      result: editPortfolio,
+      result: tradePortfolio,
     });
   } catch (err) {
     next(err);
   }
 });
 
-router.delete("/", async (req, res, next) => {
+router.delete("/", protectRoute, tradeRoute, async (req, res, next) => {
   try {
-    const editPortfolio = await PortfolioControllers.tradeCoin(req.body, next);
+    const sellPortfolio = await PortfolioControllers.sellCoin(req.body, next);
     res.status(200).json({
       success: true,
-      result: editPortfolio,
+      result: sellPortfolio,
     });
   } catch (err) {
     next(err);

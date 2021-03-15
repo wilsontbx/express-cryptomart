@@ -27,6 +27,6 @@ const PortfolioSchema = new mongoose.Schema({
   },
 });
 
-const Portfolio = mongoose.model("Coin", PortfolioSchema);
+const Portfolio = mongoose.model("Portfolio", PortfolioSchema);
 
 module.exports = Portfolio;
