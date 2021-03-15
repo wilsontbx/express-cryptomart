@@ -5,6 +5,21 @@ const protectRoute = require("../middleware/protectorRoute");
 const tradeRoute = require("../middleware/tradeRoute");
 
 //route
+router.get("/history/:username", protectRoute, async (req, res, next) => {
+  try {
+    const history = await PortfolioControllers.getHistory(
+      req.params.username,
+      next
+    );
+    res.status(200).json({
+      success: true,
+      result: history,
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.get("/:username", protectRoute, async (req, res, next) => {
   try {
     const portfolio = await PortfolioControllers.getPortfolio(

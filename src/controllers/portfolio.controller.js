@@ -177,6 +177,14 @@ const PortfolioControllers = {
       next(err);
     }
   },
+  getHistory: async (username, next) => {
+    try {
+      const history = await HistoryModel.find({ username: username });
+      return history;
+    } catch (err) {
+      next(err);
+    }
+  },
 };
 
 module.exports = PortfolioControllers;
