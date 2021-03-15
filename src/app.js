@@ -40,4 +40,7 @@ app.use("/coin", coinRouter);
 const portfolioRouter = require("./routes/portfolio.route");
 app.use("/portfolio", portfolioRouter);
 
+const watchlistRouter = require("./routes/watchlist.route");
+app.use("/watchlist", watchlistRouter);
+
 module.exports = app;

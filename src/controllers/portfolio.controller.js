@@ -95,7 +95,7 @@ const PortfolioControllers = {
   getPortfolio: async (username, next) => {
     try {
       const portfolio = await PortfolioModel.find({ username: username }).sort({
-        updated_at: 1,
+        updatedAt: 1,
       });
       return portfolio;
     } catch (err) {
