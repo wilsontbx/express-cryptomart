@@ -32,7 +32,7 @@ app.post("/", requireJsonContent, (req, res) => {
 });
 
 const userRouter = require("./routes/user.route");
-app.use("/user", userRouter);
+app.use("/users", userRouter);
 
 const coinRouter = require("./routes/coin.route");
 app.use("/coin", coinRouter);

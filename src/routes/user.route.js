@@ -11,7 +11,7 @@ router.post("/register", async (req, res, next) => {
     const newUser = await user.save();
     const history = new HistoryModel(req.body);
     const newhistory = await history.save();
-    res.status(201).json({ newUser, newhistory });
+    res.status(201).json({ success: true, newUser, newhistory });
   } catch (err) {
     next(err);
   }
@@ -20,10 +20,11 @@ router.post("/register", async (req, res, next) => {
 router.post("/login", async (req, res, next) => {
   try {
     const { username, password } = req.body;
-    const user = await UserModel.findOne({ username });
+    const user = await UserModel.findOne({ username: username });
     const result = await bcrypt.compare(password, user.password);
     if (!result) {
       throw new Error("Login failed");
+      next(err);
     }
 
     const token = createJWTToken(user.username);
@@ -38,7 +39,17 @@ router.post("/login", async (req, res, next) => {
       secure: true, // use HTTPS
     });
 
-    res.send("You are now logged in!");
+    res.status(200).json({
+      success: true,
+      token,
+      expiryDate,
+      info: {
+        firstname: user.firstname,
+        lastname: user.lastname,
+        username: user.username,
+        email: user.email,
+      },
+    });
   } catch (err) {
     if (err.message === "Login failed") {
       err.statusCode = 400;
