@@ -35,7 +35,7 @@ router.get("/:username", protectRoute, async (req, res, next) => {
   }
 });
 
-router.post("/", protectRoute, tradeRoute, async (req, res, next) => {
+router.post("/", protectRoute, async (req, res, next) => {
   try {
     const newPortfolio = await PortfolioControllers.newCoin(req.body, next);
     res.status(201).json({
@@ -47,7 +47,7 @@ router.post("/", protectRoute, tradeRoute, async (req, res, next) => {
   }
 });
 
-router.put("/", protectRoute, tradeRoute, async (req, res, next) => {
+router.put("/", protectRoute, async (req, res, next) => {
   try {
     const tradePortfolio = await PortfolioControllers.tradeCoin(req.body, next);
     res.status(200).json({
@@ -59,7 +59,7 @@ router.put("/", protectRoute, tradeRoute, async (req, res, next) => {
   }
 });
 
-router.delete("/", protectRoute, tradeRoute, async (req, res, next) => {
+router.delete("/", protectRoute, async (req, res, next) => {
   try {
     const sellPortfolio = await PortfolioControllers.sellCoin(req.body, next);
     res.status(200).json({

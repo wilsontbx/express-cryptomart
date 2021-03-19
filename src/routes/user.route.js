@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const createJWTToken = require("../config/jwt");
 const UserModel = require("../models/user.model");
 const HistoryModel = require("../models/history.model");
+const protectRoute = require("../middleware/protectorRoute");
 
 router.post("/register", async (req, res, next) => {
   try {
@@ -48,10 +49,34 @@ router.post("/login", async (req, res, next) => {
         lastname: user.lastname,
         username: user.username,
         email: user.email,
+        wallet: user.wallet,
       },
     });
   } catch (err) {
     if (err.message === "Login failed") {
+      err.statusCode = 400;
+    }
+    next(err);
+  }
+});
+
+router.post("/info", protectRoute, async (req, res, next) => {
+  try {
+    const { username } = req.body;
+    const user = await UserModel.findOne({ username: username });
+
+    res.status(200).json({
+      success: true,
+      info: {
+        firstname: user.firstname,
+        lastname: user.lastname,
+        username: user.username,
+        email: user.email,
+        wallet: user.wallet,
+      },
+    });
+  } catch (err) {
+    if (err.message === "info failed") {
       err.statusCode = 400;
     }
     next(err);

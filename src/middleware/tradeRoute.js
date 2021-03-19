@@ -1,7 +1,7 @@
 const tradeRoute = (req, res, next) => {
   const { unit, price, trade } = req.body;
   try {
-    if (unit * price !== -trade) {
+    if ((Number(unit) * Number(price)).toFixed(2) !== -Number(trade)) {
       const err = new Error("trade amount is wrong");
       next(err);
     } else {
