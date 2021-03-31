@@ -31,8 +31,8 @@ router.post("/login", async (req, res, next) => {
     const token = createJWTToken(user.username);
 
     const oneDay = 24 * 60 * 60 * 1000;
-    const oneWeek = oneDay * 7;
-    const expiryDate = new Date(Date.now() + oneWeek);
+    // const oneWeek = oneDay * 7;
+    const expiryDate = new Date(Date.now() + oneDay);
 
     res.cookie("token", token, {
       expires: expiryDate,
