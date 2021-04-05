@@ -24,7 +24,7 @@ router.post("/login", async (req, res, next) => {
     const user = await UserModel.findOne({ username: username });
     const result = await bcrypt.compare(password, user.password);
     if (!result) {
-      throw new Error("Login failed");
+      const err = new Error("Login failed");
       next(err);
     }
 
